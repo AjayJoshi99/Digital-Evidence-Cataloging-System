@@ -1,1 +1,18 @@
-<h1>Home page</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Your Files</h1>
+    <ul>
+        {% for file in files %}
+            <li>
+                <a href="/uploads/{{ file }}" download>{{ file }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="/upload">Upload a File</a> |
+    <a href="/">Logout</a>
+</body>
+</html>
