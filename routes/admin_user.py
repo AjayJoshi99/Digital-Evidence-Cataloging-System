@@ -9,23 +9,25 @@ users_collection = db['User_Login']
 
 @user_blueprint.route('/add', methods=['POST'])
 def add_user():
+  error = ""
   username = request.form.get('username')
   password = request.form.get('password')
   if users_collection.find_one({"username": username}):
-    flash("User already exists", "error")
+    error = "User already exists"
   else:
     users_collection.insert_one({"username": username, "password": password})
-    flash(f"User '{username}' added successfully", "success")
-  return render_template("AdminHome.html") 
+    error = f"User '{username}' added successfully"
+  return render_template("AdminHome.html", error = error) 
 
 
 @user_blueprint.route('/delete', methods=['POST'])
 def delete_user():
+  error = ""
   username = request.form.get('username')
   user = users_collection.find_one({"username": username})
   if not user:
-    flash("User not found", "error")
+    error = "User not found"
   else:
     users_collection.delete_one({"username": username})
-    flash(f"User '{username}' deleted successfully", "success")
-  return render_template("AdminHome.html") 
+    error = f"User '{username}' deleted successfully"
+  return render_template("AdminHome.html", error = error) 

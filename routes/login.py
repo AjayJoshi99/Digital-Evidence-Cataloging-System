@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request, Blueprint
+from flask import render_template, session, request, Blueprint
 from pymongo import MongoClient
 import os
 
@@ -42,3 +42,10 @@ def login_user():
     if flag:
         error = "User doesnot exist !!!"
         return render_template("login.html",error = error)
+    
+
+@login_blueprint.route("/logout", methods=['Post'])
+def logout_user():
+    username = session.get('username') 
+    session.pop(username, None)
+    return render_template('/login.html')

@@ -34,19 +34,14 @@
                 <div class="row row-1 border-bottom">
                     <h5 class="text-center mt-4">Admin Panel</h5>
                 </div>
+                <div class = 'row'>
+                    {% if error %}
+                    <div class="text-center text-danger fs-4">
+                        {{ error }}
+                    </div>
+            {% endif %}
+                </div>
                 <div class="row row-2">
-                    {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        <div>
-                            {% for category, message in messages %}
-                                <div class="alert alert-{{ category }}" role="alert">
-                                    {{ message }}
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                    {% endwith %}
-                    <br/>
                     <div class="accordion" id="userAccordion">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingAddUser">
@@ -93,7 +88,23 @@
                 </div>
             </div>
             <div class="column-2">
-                <h5 class="text-center mt-4">Second Column Content</h5>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">MyApp</a>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav ms-auto">
+                                <li class="nav-item">
+                                    <form action="/logout" method="POST">
+                                        <button class="btn btn-danger" type="submit">Log Out</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+
+
             </div>
         </div>
     </div>
