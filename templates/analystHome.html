@@ -103,30 +103,42 @@
         </div>
     </nav>
     <div class="card-footer text-center">
-        <h3>Logged in as : Investigator</h3>
+        <h3>Logged in as : Analyst</h3>
     </div>
     <div class="container mt-5">
         <div class="card shadow-lg">
             <div class="card-header">
-                <h1 class="h3 mb-0">Your Files</h1>
+                <h1 class="h3 mb-0">All Files</h1>
             </div>
-            <div class="card-body">
-                <ul class="list-group">
-                    {% for file in files %}
-                        {% set val = loop.index %}
-                    <li class="list-group-item">
-                        <span id = {{val}}>{{ file }}</span>
-                        <form action="/view/{{val}}" method="POST" class="d-inline" target="_blank">
-                            <input type="hidden" name="file_name{{ val }}" value="{{ file }}">
-                            <button type="submit" class="btn btn-danger btn-sm">View</button>
-                         </form>
-                    </li>
-                    {% endfor %}
-                </ul>
+            <div class="container mt-4">
+                {% for folder, files in folders.items() %}
+                {% set val = loop.index %}
+                <div class="card mb-3">
+                    <div class="card-header bg-primary text-white">
+                        <strong>{{ folder or "Root" }}</strong>
+                    </div>
+                    <div class="card-body">
+                        {% if files %}
+                        <ul class="list-group list-group-flush">
+                            {% for file in files %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>{{ file }}</span>
+                                <form action="/viewAll/{{val}}" method="POST" class="d-inline" target="_blank">
+                                    <input type="hidden" name="file_name{{ val }}" value="{{ file }}">
+                                    <button type="submit" class="btn btn-danger btn-sm">View</button>
+                                 </form>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <p class="text-muted">No files available</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-            <div class="card-footer">
-                <a href="/upload" class="btn btn-success">Upload a New File</a>
-            </div>
+            
+
         </div>
     </div>
 
